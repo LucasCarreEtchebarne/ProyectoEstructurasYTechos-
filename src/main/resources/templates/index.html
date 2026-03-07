@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>TECHOS Y ESTRUCTURAS CR</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      
+      <head th:replace="~{general/fragmentos :: head}"></head>
+
     <body>
-        <div>TODO write content</div>
+        
+        <header th:replace="~{general/fragmentos :: header}"></header>
+        <section th:replace="~{general/fragmentos :: section}"></section>
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+        
     </body>
+    
 </html>
