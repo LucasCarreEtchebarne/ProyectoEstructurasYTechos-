@@ -1,15 +1,95 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{general/fragmentos :: head}"></head>
+
+<body>
+
+<header th:replace="~{general/fragmentos :: header}"></header>
+
+<section class="container mt-5">
+
+    <h2 class="text-center mb-4">Modificar Cliente</h2>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <form th:action="@{/clientes/guardar}"
+                  th:object="${cliente}"
+                  method="post">
+
+                <input type="hidden" th:field="*{idCliente}">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Nombre</label>
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{nombre}">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Teléfono</label>
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{telefono}">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Correo</label>
+                        <input type="email"
+                               class="form-control"
+                               th:field="*{correo}">
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col-md-8">
+                        <label class="form-label">Dirección</label>
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{direccion}">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Activo</label>
+                        <select class="form-control"
+                                th:field="*{activo}">
+                            <option th:value="true">Sí</option>
+                            <option th:value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        Actualizar Cliente
+                    </button>
+
+                    <a th:href="@{/clientes/listado}"
+                       class="btn btn-secondary">
+                        Cancelar
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+</body>
 </html>
