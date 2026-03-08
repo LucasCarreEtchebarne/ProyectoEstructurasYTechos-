@@ -2,38 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{general/fragmentos :: head}"></head>
+    <head th:replace="~{general/fragmentos :: head}"></head>
 
-<body>
+    <body>
 
-<header th:replace="~{general/fragmentos :: header}"></header>
+        <header th:replace="~{general/fragmentos :: header}"></header>
 
-<section class="container mt-5">
+        <section class="container mt-5">
 
-    <h2 class="text-center mb-4">
-        Gestión de Cotizaciones
-    </h2>
+            <h2 class="text-center mb-4">
+                Gestion de Cotizaciones
+            </h2>
 
-    <div th:if="${todoOk}" class="alert alert-success text-center">
-        [[${todoOk}]]
-    </div>
+            <div th:if="${todoOk}" class="alert alert-success text-center">
+                [[${todoOk}]]
+            </div>
 
-    <div th:if="${error}" class="alert alert-danger text-center">
-        [[${error}]]
-    </div>
+            <div th:if="${error}" class="alert alert-danger text-center">
+                [[${error}]]
+            </div>
 
-    <!-- FORMULARIO -->
-    <div th:replace="~{cotizaciones/fragmentos :: formCotizacion}"></div>
+            <!-- FORMULARIO -->
+            <div th:replace="~{cotizaciones/fragmentos :: formCotizacion}"></div>
 
-    <h4 class="mb-3">
-        Total de Cotizaciones: [[${totalCotizaciones}]]
-    </h4>
+            <h4 class="mb-3">
+                Total de Cotizaciones: [[${totalCotizaciones}]]
+            </h4>
 
-    <div th:replace="~{cotizaciones/fragmentos :: tablaCotizaciones}"></div>
+            <div th:replace="~{cotizaciones/fragmentos :: tablaCotizaciones}"></div>
 
-</section>
+        </section>
 
-<footer th:replace="~{general/fragmentos :: footer}"></footer>
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
 
-</body>
+    </body>
 </html>
