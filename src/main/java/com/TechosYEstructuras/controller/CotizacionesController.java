@@ -1,3 +1,4 @@
+
 package com.TechosYEstructuras.controller;
 
 import com.TechosYEstructuras.domain.Cotizaciones;
@@ -22,8 +23,8 @@ public class CotizacionesController {
     private final ProyectosService proyectosService;
 
     public CotizacionesController(CotizacionesService cotizacionesService,
-                                  ClientesService clientesService,
-                                  ProyectosService proyectosService) {
+            ClientesService clientesService,
+            ProyectosService proyectosService) {
         this.cotizacionesService = cotizacionesService;
         this.clientesService = clientesService;
         this.proyectosService = proyectosService;
@@ -45,9 +46,31 @@ public class CotizacionesController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(Cotizaciones cotizacion, RedirectAttributes redirectAttributes) {
-        cotizacionesService.save(cotizacion);
-        redirectAttributes.addFlashAttribute("todoOk", "Cotización guardada correctamente");
+    public String guardar(Cotizaciones cotizacion,
+            Integer idCliente,
+            Integer idProyecto,
+            RedirectAttributes redirectAttributes) {
+        try {
+            if (idCliente != null) {
+                var clienteOpt = clientesService.getCliente(idCliente);
+                if (clienteOpt.isPresent()) {
+                    cotizacion.setCliente(clienteOpt.get());
+                }
+            }
+
+            if (idProyecto != null) {
+                var proyectoOpt = proyectosService.getProyecto(idProyecto);
+                if (proyectoOpt.isPresent()) {
+                    cotizacion.setProyecto(proyectoOpt.get());
+                }
+            }
+
+            cotizacionesService.save(cotizacion);
+            redirectAttributes.addFlashAttribute("todoOk", "Cotización guardada correctamente");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo guardar la cotización");
+        }
+
         return "redirect:/cotizaciones/listado";
     }
 
@@ -64,8 +87,8 @@ public class CotizacionesController {
 
     @GetMapping("/modificar/{idCotizacion}")
     public String modificar(@PathVariable("idCotizacion") Integer idCotizacion,
-                            Model model,
-                            RedirectAttributes redirectAttributes) {
+            Model model,
+            RedirectAttributes redirectAttributes) {
 
         Optional<Cotizaciones> cotizacionOpt = cotizacionesService.getCotizacion(idCotizacion);
 

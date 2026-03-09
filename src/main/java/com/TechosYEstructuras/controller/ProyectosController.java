@@ -38,9 +38,21 @@ public class ProyectosController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(Proyectos proyecto, RedirectAttributes redirectAttributes) {
-        proyectosService.save(proyecto);
-        redirectAttributes.addFlashAttribute("todoOk", "Proyecto guardado correctamente");
+    public String guardar(Proyectos proyecto, Integer idCliente, RedirectAttributes redirectAttributes) {
+        try {
+            if (idCliente != null) {
+                var clienteOpt = clientesService.getCliente(idCliente);
+                if (clienteOpt.isPresent()) {
+                    proyecto.setCliente(clienteOpt.get());
+                }
+            }
+
+            proyectosService.save(proyecto);
+            redirectAttributes.addFlashAttribute("todoOk", "Proyecto guardado correctamente");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo guardar el proyecto");
+        }
+
         return "redirect:/proyectos/listado";
     }
 
@@ -57,8 +69,8 @@ public class ProyectosController {
 
     @GetMapping("/modificar/{idProyecto}")
     public String modificar(@PathVariable("idProyecto") Integer idProyecto,
-                            Model model,
-                            RedirectAttributes redirectAttributes) {
+            Model model,
+            RedirectAttributes redirectAttributes) {
 
         Optional<Proyectos> proyectoOpt = proyectosService.getProyecto(idProyecto);
 
